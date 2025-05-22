@@ -1,0 +1,80 @@
+/* src/components/UserEventsSummary.css */
+
+.user-events-summary-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 25px auto;
+  padding: 20px;
+  background-color: #f9fafb;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 300px), 1fr)
+  ); /* Genişlik artırıldı */
+  gap: 20px;
+}
+
+.user-events-summary-container > h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #2d3436;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.7em;
+  border-bottom: 2px solid #74b9ff;
+  padding-bottom: 10px;
+}
+
+.user-events-summary-container .no-events-global-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #636e72;
+  font-size: 1.1em;
+  padding: 20px 0;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.user-group {
+  margin-bottom: 0;
+  /* background-color: #ffffff; JS'den dinamik renk gelecek */
+  padding: 15px;
+  border-radius: 6px;
+  border-width: 2px; /* CSS'de sabit, renk JS'den */
+  border-style: solid; /* CSS'de sabit, renk JS'den */
+  /* border-color: #e9ecef; JS'den dinamik renk gelecek */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  min-height: 150px; /* Kullanıcı kartları için min yükseklik */
+}
+
+.user-group h3 {
+  /* color: #0984e3; JS'den dinamik renk gelecek */
+  font-size: 1.3em;
+  margin-top: 0;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.user-group ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  flex-grow: 1;
+  /* max-height ve overflow-y kaldırıldı */
+}
+
+.no-events-for-user-ingroup {
+  text-align: center;
+  /* color: #7f8c8d; Renk JS'den dinamik */
+  font-style: italic;
+  padding: 10px;
+  font-size: 0.9em;
+  margin-top: auto; /* Eğer kartta başka içerik yoksa dibe yasla */
+}

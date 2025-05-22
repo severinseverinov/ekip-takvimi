@@ -1,38 +1,351 @@
+/* Genel Sayfa Stilleri */
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+  padding-bottom: 40px; /* Alt boşluk */
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #2c3e50;
+  padding: 15px 20px;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+}
+@media (min-width: 768px) {
+  .App-header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.App-header .auth-controls-and-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .App-header .auth-controls-and-user {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.App-header .auth-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.App-header p {
+  font-size: 0.9em;
+  margin: 0; /* Reset margin */
+}
+
+.App-header button,
+.App-header .auth-controls button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 4px;
   color: white;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease;
+}
+.App-header .auth-controls button {
+  background-color: #5dade2;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header button:hover,
+.App-header .auth-controls button:hover {
+  background-color: #2980b9;
+}
+.App-header .auth-controls button:hover {
+  background-color: #5499c7;
 }
 
-@keyframes App-logo-spin {
+/* Takvim Navigasyon Kontrolleri */
+.calendar-section-header {
+  width: 90%;
+  max-width: 1100px; /* Genişletildi */
+  margin: 20px auto 10px auto;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.calendar-section-header h2 {
+  font-size: 1.5em;
+  color: #2c3e50;
+  margin: 0 0 15px 0;
+}
+
+.navigation-controls {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.navigation-controls button {
+  padding: 8px 15px;
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 8px;
+  font-size: 0.95em;
+  transition: background-color 0.2s ease;
+}
+
+.navigation-controls button:hover {
+  background-color: #16a085;
+}
+
+/* MonthCalendar Stilleri (Ay Takvimi) */
+.month-calendar {
+  padding: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.month-header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.month-header h3 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #2c3e50;
+  padding: 5px 0;
+}
+
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 4px;
+  font-size: 0.75em;
+}
+
+.calendar-day-name {
+  padding: 3px 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, auto);
+  gap: 1px;
+  flex-grow: 1;
+}
+
+.calendar-day {
+  border: 1px solid #f5f5f5;
+  padding: 4px;
+  min-height: 90px; /* Yükseklik artırıldı */
+  position: relative;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-size: 0.78em;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day:hover {
+  background-color: #f0f8ff;
+}
+
+.calendar-day.empty {
+  background-color: #fdfdfd;
+  cursor: default;
+}
+.calendar-day.empty:hover {
+  background-color: #fdfdfd;
+}
+
+.day-number {
+  font-size: 0.85em;
+  font-weight: bold;
+  margin-bottom: 3px;
+  text-align: center;
+  padding: 2px 0;
+}
+
+.events-container {
+  font-size: 0.9em;
+  max-height: 60px; /* Etkinlikler için alan artırıldı */
+  overflow-y: auto;
+  line-height: 1.2;
+  flex-grow: 1;
+  padding: 2px;
+}
+.events-container::-webkit-scrollbar {
+  width: 4px;
+}
+.events-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+/* Takvimdeki Etkinlik Stili (.event) */
+.event {
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78em;
+  line-height: 1.3;
+  border-left-width: 4px;
+  border-left-style: solid;
+  transition: opacity 0.3s ease;
+  /* backgroundColor, borderLeftColor, color JS'den dinamik olarak geliyor */
+}
+
+.event strong {
+  /* Metin rengi parent div'den geliyor */
+}
+
+.event.event-done {
+  opacity: 0.65;
+}
+
+.event.event-done strong {
+  text-decoration: line-through;
+  text-decoration-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal Stilleri */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* UserEventItem dropdown'dan daha yüksek */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 480px; /* Biraz daha genişletildi */
+  animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.modal-content form .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.modal-content form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.modal-content .event-title-input,
+.modal-content .event-time-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.modal-content .event-title-input:focus,
+.modal-content .event-time-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-content button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.modal-content button:hover {
+  transform: translateY(-1px);
+}
+.modal-content button:active {
+  transform: translateY(0px);
+}
+
+.modal-submit-btn {
+  background-color: #28a745;
+  color: white;
+}
+.modal-submit-btn:hover {
+  background-color: #218838;
+}
+
+.modal-cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+.modal-cancel-btn:hover {
+  background-color: #5a6268;
 }

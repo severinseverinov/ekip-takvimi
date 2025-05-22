@@ -1,0 +1,41 @@
+/* src/components/SixMonthView.css */
+.six-month-view-container {
+  display: grid;
+  /* Ekran genişliğine göre sütun sayısı:
+     Çok dar ekranlarda (örn: < 640px): 1 sütun
+     Orta ekranlarda (örn: < 960px): 2 sütun
+     Geniş ekranlarda: 3 sütun
+  */
+  grid-template-columns: repeat(1, 1fr); /* Varsayılan mobil için */
+  gap: 20px; /* Aylar arası boşluk */
+  padding: 15px;
+  width: 100%;
+  max-width: 1200px; /* Konteynerin maksimum genişliği */
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  /* Küçük tabletler ve üzeri */
+  .six-month-view-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  /* Büyük tabletler ve masaüstü */
+  .six-month-view-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.single-month-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px; /* Daha belirgin köşeler */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Hafif gölge */
+  background-color: #fff;
+  overflow: hidden; /* İçerik taşmasını engelle */
+  display: flex; /* İçeriği dikeyde esnetmek için */
+  flex-direction: column; /* MonthCalendar'ın yüksekliğini doldurması için */
+}
