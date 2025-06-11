@@ -185,12 +185,29 @@
   background-color: #fdfdfd;
 }
 
+.calendar-day.today {
+  background-color: #e3f2fd; /* Açık mavi bir arka plan */
+  border: 1px solid #90caf9; /* Biraz daha belirgin bir kenarlık */
+}
+
 .day-number {
   font-size: 0.85em;
   font-weight: bold;
   margin-bottom: 3px;
   text-align: center;
   padding: 2px 0;
+}
+
+.calendar-day.today .day-number {
+  background-color: #1976d2; /* Canlı bir mavi */
+  color: white; /* Metin rengi beyaz */
+  border-radius: 50%; /* Daire şekli */
+  width: 1.9em; /* Daire genişliği */
+  height: 1.9em; /* Daire yüksekliği */
+  line-height: 1.9em; /* Sayıyı dikeyde ortala */
+  padding: 0; /* Mevcut padding'i sıfırla */
+  margin: 0 auto 3px auto; /* Daireyi yatayda ortala, alttaki etkinliklerden boşluk bırak */
+  display: inline-block; /* Genişlik/yükseklik/margin özelliklerinin çalışması için */
 }
 
 .events-container {

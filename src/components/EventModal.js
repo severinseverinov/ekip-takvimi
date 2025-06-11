@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-// App.css içindeki modal stilleri kullanılacak
 
 const EventModal = ({
   dateForNewEvent,
   eventToEdit,
   onClose,
-  onAddEventSubmit, // (title, startAtTimestamp) => void
-  onEditEventSubmit, // (eventId, newTitle, startAtTimestamp) => void
+  onAddEventSubmit,
+  onEditEventSubmit,
 }) => {
   const isEditMode = !!eventToEdit;
   const [title, setTitle] = useState("");
@@ -16,8 +15,8 @@ const EventModal = ({
     if (isEditMode && eventToEdit) {
       setTitle(eventToEdit.title);
       if (eventToEdit.start_at) {
-        const eventDateObj = new Date(eventToEdit.start_at);
-        // Tarayıcının yerel saat dilimine göre saati alıp input'a set et
+        const eventDateObj = new Date(eventToEdit.start_at); // UTC string'den yerel Date objesi
+        // Input'a göstermek için yerel saati al
         const localHours = eventDateObj.getHours().toString().padStart(2, "0");
         const localMinutes = eventDateObj
           .getMinutes()
@@ -36,36 +35,35 @@ const EventModal = ({
   const handleSubmit = e => {
     e.preventDefault();
     if (title.trim() && time) {
-      let finalTimestampISO;
       const [hours, minutes] = time.split(":").map(Number);
+      let finalTimestampISO;
 
       if (isEditMode && eventToEdit) {
-        const existingEventDate = new Date(eventToEdit.start_at); // Bu zaten UTC veya yerel olabilir
-        // Kullanıcının girdiği saati, etkinliğin orijinal gününe uygula
-        // new Date() tarayıcının yerel saat dilimini kullanır.
-        // Tarih kısmını eventToEdit'ten al, saat kısmını input'tan
-        const year = existingEventDate.getFullYear();
-        const month = existingEventDate.getMonth(); // 0-11
-        const day = existingEventDate.getDate();
-        finalTimestampISO = new Date(
+        // Düzenleme: Mevcut etkinliğin orijinal tarihini (gün, ay, yıl) al,
+        // yeni girilen yerel saati bu tarihe uygula.
+        const originalEventFullDate = new Date(eventToEdit.start_at); // Bu UTC'yi yerel saate çevirir
+        // Yeni Date objesi oluşturup, orijinal tarihin YIL, AY, GÜN'ünü alalım
+        // ve yeni SAAT, DAKİKA'yı yerel olarak ayarlayalım.
+        const year = originalEventFullDate.getFullYear();
+        const month = originalEventFullDate.getMonth(); // 0-11 arası
+        const day = originalEventFullDate.getDate();
+
+        // Yeni tarih objesini yerel saat diliminde oluştur
+        const updatedEventDateLocal = new Date(
           year,
           month,
           day,
           hours,
           minutes
-        ).toISOString();
+        );
+        finalTimestampISO = updatedEventDateLocal.toISOString(); // UTC'ye çevir
         onEditEventSubmit(eventToEdit.id, title.trim(), finalTimestampISO);
       } else if (dateForNewEvent) {
-        const year = dateForNewEvent.getFullYear();
-        const month = dateForNewEvent.getMonth();
-        const day = dateForNewEvent.getDate();
-        finalTimestampISO = new Date(
-          year,
-          month,
-          day,
-          hours,
-          minutes
-        ).toISOString();
+        // Ekleme: Takvimden seçilen gün (dateForNewEvent yerel 00:00'ı temsil eder)
+        // ve yeni girilen yerel saati birleştir.
+        const newEventFullDateLocal = new Date(dateForNewEvent); // Bu zaten yerel bir Date objesi
+        newEventFullDateLocal.setHours(hours, minutes, 0, 0); // Yerel saati ayarla
+        finalTimestampISO = newEventFullDateLocal.toISOString(); // UTC'ye çevir
         onAddEventSubmit(title.trim(), finalTimestampISO);
       }
     } else {

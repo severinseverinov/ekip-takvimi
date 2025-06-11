@@ -368,6 +368,7 @@ function App() {
   const goToNextPeriod = () => {
     setStartDisplayDate(prevDate => addMonths(prevDate, 1));
   };
+  const today = new Date(); // Bugünün tarihini al
 
   if (loading && !currentUser && typeof supabase.auth.session === "undefined") {
     // Supabase JS v1 check
@@ -435,6 +436,7 @@ function App() {
             darkenColorFn={darkenColor}
             getContrastColorFn={getContrastColor}
             profiles={profiles} // Event.js'in profile erişimi için
+            today={today}
           />
         </>
       )}

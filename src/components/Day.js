@@ -9,16 +9,24 @@ const Day = ({
   userColorMap,
   darkenColorFn,
   getContrastColorFn,
-  profiles, // profiles prop'unu al
+  profiles,
+  today,
 }) => {
   // Gün içindeki etkinlikleri saatine göre sırala
   const sortedDayEvents = [...events].sort((a, b) => {
     if (!a.start_at || !b.start_at) return 0; // Eğer start_at yoksa sıralamayı etkileme
     return new Date(a.start_at) - new Date(b.start_at);
   });
+  const isToday =
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
+
+  // Dinamik olarak sınıf ekle
+  const dayClasses = `calendar-day ${isToday ? "today" : ""}`;
 
   return (
-    <div className="calendar-day" onClick={() => onClick(date)}>
+    <div className={dayClasses} onClick={() => onClick(date)}>
       <span className="day-number">{date.getDate()}</span>
       <div className="events-container">
         {sortedDayEvents.map(event => (

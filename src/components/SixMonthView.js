@@ -10,7 +10,8 @@ const SixMonthView = ({
   userColorMap,
   darkenColorFn,
   getContrastColorFn,
-  profiles, // profiles prop'unu al
+  profiles,
+  today,
 }) => {
   const monthsToDisplay = [];
   for (let i = 0; i < 6; i++) {
@@ -28,7 +29,8 @@ const SixMonthView = ({
             userColorMap={userColorMap}
             darkenColorFn={darkenColorFn}
             getContrastColorFn={getContrastColorFn}
-            profiles={profiles} // MonthCalendar'a aktar
+            profiles={profiles}
+            today={today}
           />
         </div>
       ))}
