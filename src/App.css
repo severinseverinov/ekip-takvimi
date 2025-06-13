@@ -252,6 +252,7 @@
 
 .event.event-done strong {
   text-decoration: line-through;
+  -webkit-text-decoration-color: rgba(0, 0, 0, 0.7);
   text-decoration-color: rgba(0, 0, 0, 0.7);
 }
 
